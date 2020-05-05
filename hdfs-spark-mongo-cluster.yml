@@ -1,0 +1,231 @@
+version: "3.3"
+
+services:
+
+# jre
+  jre:
+    build: ./docker-files/jre/8u242-centos7
+    image: jre:8u242-centos7
+    container_name: jre
+    networks:
+      - spark-net
+
+# Hadoop-2.7.7        
+  base-2:
+    build: ./docker-files/hadoop/2.7.7
+    image: hadoop:2.7.7
+    container_name: base-2
+    networks:
+      - spark-net
+
+# Hadoop-3.2.1        
+  base:
+    build: ./docker-files/hadoop/3.2.1/base
+    image: hadoop:3.2.1
+    container_name: base
+    networks:
+      - spark-net
+
+# spark-2.4.5
+  spark:
+    build: ./docker-files/spark/2.4.5
+    image: spark:2.4.5
+    container_name: spark
+    networks:
+      - spark-net        
+       
+# HDFS services
+  namenode:
+    build: ./docker-files/hadoop/3.2.1/namenode
+    image: namenode:3.2.1
+    container_name: namenode
+    ports:
+      - "9874:9870"
+    environment:
+      - CLUSTER_NAME=neurodata
+    env_file:
+      - ./env/hadoop.env        
+    volumes:
+      - ${VOLUMES_PATH}/hadoop/namenode:/hadoop/dfs/name
+    restart: unless-stopped
+    networks:
+      - spark-net
+
+  datanode:
+    build: ./docker-files/hadoop/3.2.1/datanode
+    image: datanode:3.2.1
+    container_name: datanode
+    env_file:
+      - ./env/hadoop.env    
+    volumes:
+      - ${VOLUMES_PATH}/hadoop/datanode:/hadoop/dfs/data
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+    ports:
+      - "9864:9864"      
+    restart: unless-stopped
+    networks:
+      - spark-net
+
+# HIVE services        
+  hive-server:
+    build: ./docker-files/docker-hive/
+    image: hive:1.2.2
+    container_name: hive-server
+    env_file:
+      - ./env/hadoop-hive.env
+    environment:
+      HIVE_CORE_CONF_javax_jdo_option_ConnectionURL: "jdbc:postgresql://hive-metastore/metastore"
+      SERVICE_PRECONDITION: "hive-metastore:9083"      
+    ports:
+      - "10000:10000"
+    restart: unless-stopped
+    networks:
+      - spark-net
+
+  hive-init-db:
+    build: ./docker-files/docker-hive/
+    image: hive:1.2.2
+    env_file:
+      - ./env/hadoop-hive.env
+    environment:
+      HIVE_CORE_CONF_javax_jdo_option_ConnectionURL: "jdbc:postgresql://hive-metastore/metastore"
+    command: /opt/hive/bin/schematool -dbType postgres -initSchema
+    networks:
+      - spark-net        
+
+  hive-metastore-postgresql:
+    build: ./docker-files/docker-hive-metastore-postgresql/
+    image: hive-metastore-postgresql:1.2.2-12
+    container_name: hive-metastore-postgresql
+    volumes:
+      - ${VOLUMES_PATH}/postgres/data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:        
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "ns123"        
+    restart: unless-stopped
+    networks:
+      - spark-net        
+        
+  hive-metastore:
+    build: ./docker-files/docker-hive/
+    image: hive:1.2.2
+    container_name: hive-metastore
+    env_file:
+      - ./env/hadoop-hive.env
+    command: hive --service metastore
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870 datanode:9864 hive-metastore-postgresql:5432"
+    ports:
+      - "9083:9083"
+    restart: unless-stopped
+    networks:
+      - spark-net
+
+# SPARK services    
+  spark-master:
+    image: spark:2.4.5
+    container_name: spark-master
+    ports:
+      - 8080:8080
+      - 7077:7077
+    volumes:
+      - ${VOLUMES_PATH}/spark/conf:/opt/spark-2.4.5-bin-hadoop2.7/conf
+      - ${VOLUMES_PATH}/spark/logs:/opt/spark-2.4.5-bin-hadoop2.7/logs
+      - ${VOLUMES_PATH}/spark/data:/data
+      - ${DATA_PATH}:/sample-data
+      - ./jars:/opt/jars
+    environment:
+      SPARK_NO_DAEMONIZE: "true"
+    command: "sbin/start-master.sh"
+    restart: unless-stopped
+    networks:
+      - spark-net
+
+  spark-worker:
+    image: spark:2.4.5          
+    container_name: spark-worker-1    
+    volumes:
+      - ${VOLUMES_PATH}/spark/conf:/opt/spark-2.4.5-bin-hadoop2.7/conf
+      - ${VOLUMES_PATH}/spark/logs:/opt/spark-2.4.5-bin-hadoop2.7/logs
+      - ${DATA_PATH}:/sample-data
+      - ${VOLUMES_PATH}/spark/localdir:/data/localdir
+      - ${VOLUMES_PATH}/spark/workerdir:/data/workerdir
+      - ./jars:/opt/jars
+    environment:
+      SPARK_NO_DAEMONIZE: "true"
+    command: "sbin/start-slave.sh spark://spark-master:7077"        
+    restart: unless-stopped
+    networks:
+      - spark-net
+
+
+# Apache ZEPPELIN
+  zeppelin:
+    build: ./docker-files/zeppelin/
+    image: zeppelin:0.8.2
+    container_name: zeppelin    
+    ports:
+      - 8085:8080
+      - 4040:4040  
+    volumes:
+      - ${VOLUMES_PATH}/zeppelin/conf:/opt/zeppelin/conf
+      - ${VOLUMES_PATH}/zeppelin/notebook:/opt/zeppelin/notebook
+      - ${VOLUMES_PATH}/zeppelin/logs:/opt/zeppelin/logs
+      - ${DATA_PATH}:/sample-data
+      - ${VOLUMES_PATH}/spark/conf:/opt/spark-2.4.5-bin-hadoop2.7/conf
+      - ${VOLUMES_PATH}/spark/localdir:/data/localdir
+      - ${VOLUMES_PATH}/spark/workerdir:/data/workerdir
+      - ./jars:/opt/jars
+    restart: unless-stopped
+    networks:
+      - spark-net
+        
+# MongoDB
+  mongo:
+    image: mongo:4.2.6
+    container_name: mongos
+    hostname: mongos
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ns123
+    volumes:
+      - ${VOLUMES_PATH}/mongo/data:/data/db
+      - ${VOLUMES_PATH}/mongo/logs:/logs
+    ports:
+      - target: 27017
+        published: 27017
+        protocol: tcp
+        mode: host        
+    command: "mongod --bind_ip_all"
+    restart: unless-stopped
+    networks:
+      - spark-net
+
+# Netdata
+  netdata:
+    image: netdata/netdata
+    container_name: netdata
+    hostname: netdata
+    ports:
+      - 19999:19999
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    volumes:
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+    restart: unless-stopped
+    networks:
+      - spark-net
+    
+
+networks:
+  spark-net:
+    external:
+     name: spark-net
