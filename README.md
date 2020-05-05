@@ -1,6 +1,6 @@
 # BDNS Cluster
 ## Introduction
-This is a Standalone cluster which includes the big data tools required by **BDNS**. This cluster is built and configured with [Docker](https://www.docker.com/). extenstion and scale-up to multi-node cluster could be easily done with [Docker Swarm](https://docs.docker.com/engine/swarm/) or other container orchestration tools like [Kubernetes](https://kubernetes.io/).
+This is a Standalone cluster which includes the big data tools required by **BDNS**. This cluster is built and configured with [Docker](https://www.docker.com/). Extenstion and scale-up to multi-node cluster could be easily done with [Docker Swarm](https://docs.docker.com/engine/swarm/) or other container orchestration tools like [Kubernetes](https://kubernetes.io/).
 
 ### Versioning Information
 Tools that is configured in this cluster could be summarized in the following table.
