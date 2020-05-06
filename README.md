@@ -28,7 +28,7 @@ Tools that is configured in this cluster could be summarized in the following ta
 | Netdata  | 19999
 | Hive  | 10000
 
-Service WebUi is accessible with http://MACHINE_IP:Port, where MACHINE_IP is either local host or remote server ipv4 address.
+Service WebUi is accessible with http://MACHINE_IP:Port, where MACHINE_IP is either localhost or remote server ipv4 address.
 ## Getting Started
 
 ###  Create the cluster
@@ -45,7 +45,7 @@ Directrories are configurable and their path could be changed by the user.
 
 * **volumes** directory include configs and data of the services and it should be places on a disk with abundunt capacity.
 * **sample-data** corresponds the input data directory.
-* **jars** directory includes extra jar files that user needs
+* **jars** directory includes extra jar files that user needs.
 * **appJars** is the directory that includes BDNS jar file.
 
 Cluster could be created by the `create-hdfs-spark-cluster.sh` scripts. This script takes two parameter, **VOLUMES_PATH** and **DATA_PATH** respectively, which corresponds to volumes and sample-data directories.
