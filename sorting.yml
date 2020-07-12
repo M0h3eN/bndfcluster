@@ -1,0 +1,24 @@
+version: "3.3"
+
+services:
+  spark-recording-sorting:
+    image: spark:2.4.5
+    container_name: "spark-recording-sorting"
+    ports:
+      - "4042:4040"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${VOLUMES_PATH}/spark/conf:/opt/spark-2.4.5-bin-hadoop2.7/conf
+      - ${VOLUMES_PATH}/spark/logs:/opt/spark-2.4.5-bin-hadoop2.7/logs        
+      - ${DATA_PATH}:/sample-data        
+      - ./jars:/opt/jars        
+      - ./appJars:/opt/data-loader
+    command: "bin/spark-submit --class com.ipm.nslab.bdns.SimpleSorter --master spark://spark-master:7077 --executor-memory ${SPARK_EXECUTOR_MEMORY}G --total-executor-cores ${SPARK_EXECUTOR_CORES} --driver-memory ${SPARK_DRIVER_MEMORY}G /opt/data-loader/bdns-0.2.0.jar ${NAME}"
+    networks:
+      - spark-net
+
+networks:
+  spark-net:
+    external:
+     name: spark-net
+
