@@ -112,7 +112,7 @@ Experiment_Kopo_2018-04-25_J9_8900
 ```
 For example for sorting `Experiment_Kopo_2018-04-25_J9_8600` experiment:
 ```bash
-$ ./run-sorting.sh ./volumes ./sample-data 35 18 10 Experiment_Kopo_2018-04-25_J9_8600
+$ sudo ./run-sorting.sh ./volumes ./sample-data 35 18 10 Experiment_Kopo_2018-04-25_J9_8600
 ```
 
 
