@@ -59,7 +59,7 @@ This will create cluster with default paths. It could take some time for the fir
 $ sudo docker ps
 ```
 
-### Run the BDNS
+### Work with BDNS Modules
 
 #### Get Sample Data
 
@@ -74,7 +74,9 @@ $ ./get-data.sh ./sample-data
 ```bash
 $ ./get-bdns-jar.sh ./appJars
 ```
-BDNS could be run through `run.sh` script. It takes five parameter with the following order
+#### RecordingDataLoader Module
+
+RecordingDataLoader Module could be run through `run-recording-data-loader.sh` script. It takes five parameter with the following order
 
 * VOLUMES_PATH
 * DATA_PATH
@@ -83,7 +85,34 @@ BDNS could be run through `run.sh` script. It takes five parameter with the foll
 * SPARK_DRIVER_MEMORY
 
 ```bash
-$ sudo ./run.sh ./volumes ./sample-data 35 18 10
+$ sudo ./run-recording-data-loader.sh ./volumes ./sample-data 35 18 10
 ```
-This would run BDNS with default path configuration, 35 GB spark executor memory,
+This would run RecordingDataLoader module with default path configuration, 35 GB spark executor memory,
 18 spark executor cores and 10 GB spark driver memory.
+
+#### Sorting Module
+
+Sorting Module could be run through `run-sorting.sh` script. It takes six parameter with the following order
+
+* VOLUMES_PATH
+* DATA_PATH
+* SPARK_EXECUTOR_MEMORY
+* SPARK_EXECUTOR_CORES
+* SPARK_DRIVER_MEMORY
+* Experiment/Session Name
+
+The Experiment/Session list could be get after running `run-recording-data-loader.sh`. It is accessible in either Meta Data Database or by running `get-sessionOrExperiment-list.sh` cluster.
+
+```bash
+$ sudo ./get-sessionOrExperiment-list.sh
+```
+```text
+Experiment_Kopo_2018-04-25_J9_8600
+Experiment_Kopo_2018-04-25_J9_8900
+```
+For example for sorting `Experiment_Kopo_2018-04-25_J9_8600` experiment:
+```bash
+$ sudo ./run-sorting.sh ./volumes ./sample-data 35 18 10 Experiment_Kopo_2018-04-25_J9_8600
+```
+
+

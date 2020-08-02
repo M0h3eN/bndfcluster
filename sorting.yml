@@ -13,7 +13,11 @@ services:
       - ${DATA_PATH}:/sample-data        
       - ./jars:/opt/jars        
       - ./appJars:/opt/data-loader
+<<<<<<< HEAD
     command: "bin/spark-submit --class com.ipm.nslab.bdns.Sorter --master spark://spark-master:7077 --executor-memory ${SPARK_EXECUTOR_MEMORY}G --total-executor-cores ${SPARK_EXECUTOR_CORES} --driver-memory ${SPARK_DRIVER_MEMORY}G /opt/data-loader/bdns-2.0.0.jar mongodb://root:ns123@mongos:27017/admin ${NAME}"
+=======
+    command: "bin/spark-submit --class com.ipm.nslab.bdns.SimpleSorter --master spark://spark-master:7077 --executor-memory ${SPARK_EXECUTOR_MEMORY}G --total-executor-cores ${SPARK_EXECUTOR_CORES} --driver-memory ${SPARK_DRIVER_MEMORY}G /opt/data-loader/bdns-0.2.0.jar ${NAME}"
+>>>>>>> 9f74bf14cbe0ab276fa2d1cd37a3eb5cf4b15dfe
     networks:
       - spark-net
 
