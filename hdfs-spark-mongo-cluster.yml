@@ -135,6 +135,7 @@ services:
       - ${VOLUMES_PATH}/spark/conf:/opt/spark-2.4.5-bin-hadoop2.7/conf
       - ${VOLUMES_PATH}/spark/logs:/opt/spark-2.4.5-bin-hadoop2.7/logs
       - ${VOLUMES_PATH}/spark/data:/data
+      - ${VOLUMES_PATH}/spark/tmp:/tmp
       - ${DATA_PATH}:/sample-data
       - ./jars:/opt/jars
     environment:
@@ -153,6 +154,7 @@ services:
       - ${DATA_PATH}:/sample-data
       - ${VOLUMES_PATH}/spark/localdir:/data/localdir
       - ${VOLUMES_PATH}/spark/workerdir:/data/workerdir
+      - ${VOLUMES_PATH}/spark/tmp:/tmp
       - ./jars:/opt/jars
     environment:
       SPARK_NO_DAEMONIZE: "true"
