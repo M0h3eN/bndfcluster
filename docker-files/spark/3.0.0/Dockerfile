@@ -2,10 +2,10 @@ FROM jre:8u242-centos7
 
 MAINTAINER Mohsen Hadianpour <mohsenhadianpour@gmail.com>
 
-ENV SPARK_VERSION=2.4.5
-ENV HADOOP_VERSION=2.7
+ENV SPARK_VERSION=3.0.0
+ENV HADOOP_VERSION=3.2
 
 RUN wget -O - https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz | tar -xzf - -C /opt/
 
-ENV SPARK_HOME /opt/spark-2.4.5-bin-hadoop2.7
+ENV SPARK_HOME /opt/spark-3.0.0-bin-hadoop3.2
 WORKDIR $SPARK_HOME
