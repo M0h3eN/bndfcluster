@@ -10,6 +10,14 @@ services:
     networks:
       - spark-net
 
+  jre-8:
+    build: ./docker-files/jre/8u242-centos7
+    image: jre:8u242-centos7
+    container_name: jre-8
+    networks:
+      - spark-net
+
+
 # Hadoop-2.7.7        
   base-2:
     build: ./docker-files/hadoop/2.7.7
