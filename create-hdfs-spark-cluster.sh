@@ -12,7 +12,7 @@ fi
 
 echo "Creating and running containers:"
 
-docker-compose -f hdfs-spark-mongo-cluster.yml up -d jre base-2 base spark
+docker-compose -f hdfs-spark-mongo-cluster.yml up -d jre jre-8 base-2 base spark
 docker-compose -f hdfs-spark-mongo-cluster.yml up -d mongo
 docker-compose -f hdfs-spark-mongo-cluster.yml up -d namenode hive-metastore-postgresql
 docker-compose -f hdfs-spark-mongo-cluster.yml up -d datanode hive-metastore
