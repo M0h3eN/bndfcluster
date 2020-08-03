@@ -106,6 +106,22 @@ services:
     networks:
       - spark-net
 
+  hive-metastore:
+    build: ./docker-files/docker-hive/
+    image: hive:2.3.7
+    container_name: hive-metastore
+    env_file:
+      - ./env/hadoop-hive.env
+    command: hive --service metastore
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870 datanode:9864 hive-metastore-postgresql:5432"
+    ports:
+      - "9083:9083"
+    restart: unless-stopped
+    networks:
+      - spark-net
+
+
  # SPARK services
   spark-master:
     image: spark:3.0.0
