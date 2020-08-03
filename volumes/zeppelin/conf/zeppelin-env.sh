@@ -72,8 +72,8 @@ export ZEPPELIN_ADDR='0.0.0.0'                          # Bind address (default 
 ## Use provided spark installation ##
 ## defining SPARK_HOME makes Zeppelin run spark interpreter process using spark-submit
 ##
-export SPARK_HOME='/opt/spark-2.4.5-bin-hadoop2.7'                             # (required) When it is defined, load it instead of Zeppelin embedded Spark libraries
-export SPARK_SUBMIT_OPTIONS='--master spark://spark-master:7077 --jars /opt/jars/postgresql-42.2.5.jar --jars /opt/jars/mongo-spark-connector_2.11-2.4.0-assembly.jar --total-executor-cores 2  --executor-memory 10G --driver-memory 2G'                   # (optional) extra options to pass to spark submit. eg) "--driver-memory 512M --executor-memory 1G".
+export SPARK_HOME='/opt/spark-3.0.0-bin-hadoop3.2'                             # (required) When it is defined, load it instead of Zeppelin embedded Spark libraries
+export SPARK_SUBMIT_OPTIONS='--master spark://spark-master:7077 --jars /opt/jars/postgresql-42.2.5.jar --jars /opt/jars/mongo-spark-connector_2.12-3.0.0-assembly.jar --total-executor-cores 2  --executor-memory 10G --driver-memory 2G'                   # (optional) extra options to pass to spark submit. eg) "--driver-memory 512M --executor-memory 1G".
 # export SPARK_APP_NAME                         # (optional) The name of spark application.
 
 ## Use embedded spark binaries ##
