@@ -75,12 +75,19 @@ services:
     networks:
       - spark-net
 
-  hive-init-db:
+  # HIVE services
+  hive-server:
     build: ./docker-files/docker-hive/
     image: hive:2.3.7
+    container_name: hive-server
     env_file:
       - ./env/hadoop-hive.env
-    command: schematool -dbType postgres -initSchema --verbose
+    environment:
+      HIVE_CORE_CONF_javax_jdo_option_ConnectionURL: "jdbc:postgresql://hive-metastore/metastore"
+      SERVICE_PRECONDITION: "hive-metastore:9083"
+    ports:
+      - "10000:10000"
+    restart: unless-stopped
     networks:
       - spark-net
 
@@ -92,29 +99,14 @@ services:
       - ${VOLUMES_PATH}/postgres/data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-    environment:        
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "ns123"        
-    restart: unless-stopped
-    networks:
-      - spark-net        
-        
-  hive-metastore:
-    build: ./docker-files/docker-hive/
-    image: hive:2.3.7
-    container_name: hive-metastore
-    env_file:
-      - ./env/hadoop-hive.env
-    command: hive --service metastore
     environment:
-      SERVICE_PRECONDITION: "namenode:9870 datanode:9864 hive-metastore-postgresql:5432"
-    ports:
-      - "9083:9083"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "ns123"
     restart: unless-stopped
     networks:
       - spark-net
 
-# SPARK services    
+ # SPARK services
   spark-master:
     image: spark:3.0.0
     container_name: spark-master
