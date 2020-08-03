@@ -83,7 +83,7 @@ services:
     env_file:
       - ./env/hadoop-hive.env
     environment:
-      HIVE_CORE_CONF_javax_jdo_option_ConnectionURL: "jdbc:postgresql://hive-metastore/metastore"
+      HIVE_CORE_CONF_javax_jdo_option_ConnectionURL: "jdbc:postgresql://hive-metastore-postgresql/metastore"
       SERVICE_PRECONDITION: "hive-metastore:9083"      
     ports:
       - "10000:10000"
@@ -97,8 +97,8 @@ services:
     env_file:
       - ./env/hadoop-hive.env
     environment:
-      HIVE_CORE_CONF_javax_jdo_option_ConnectionURL: "jdbc:postgresql://hive-metastore/metastore"
-    command: /opt/hive/bin/schematool -dbType postgres -initSchema
+      HIVE_CORE_CONF_javax_jdo_option_ConnectionURL: "jdbc:postgresql://hive-metastore-postgresql/metastore"
+    command: /opt/hive/bin/schematool -dbType postgres -initSchema --verbose
     networks:
       - spark-net        
 
