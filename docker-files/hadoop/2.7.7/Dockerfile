@@ -1,4 +1,4 @@
-FROM jre:8u242-centos7
+FROM jre:1:11.0.7.10-4-centos7
 
 MAINTAINER Mohsen Hadianpour <mohsenhadianpour@gmail.com>
 
