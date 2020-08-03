@@ -7,10 +7,10 @@ Tools that is configured in this cluster could be summarized in the following ta
 
 | Tool  | Depencies  | DepenciesVersion  | Version
 |---|---|---|---|
-| Apache Hadoop  | Java | 8  | 2.7.7, 3.2.1
-| Apache Hive  | Apache Hadoop, PostgreSQL  | 2.7.7, 12  | 1.2.2
-| Apache Spark  | Apache Hive, Apache Hadoop  | 1.2.2, 3.2.1  | 2.4.5
-| Apache Zeppelin  | Apache Spark | 2.4.5  | 0.8.2
+| Apache Hadoop  | Java | 11  | 2.7.7, 3.2.1
+| Apache Hive  | Apache Hadoop, PostgreSQL  | 2.7.7, 12  | 2.3.7
+| Apache Spark  | Apache Hive, Apache Hadoop  | 2.3.7, 3.2.1  | 3.0.0
+| Apache Zeppelin  | Apache Spark | 3.0.0  | 0.9.0
 | MongoDB  | - | -  | 4.2.6
 | Netdata  | - | -  | latest
 
