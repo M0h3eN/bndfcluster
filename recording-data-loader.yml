@@ -2,14 +2,14 @@ version: "3.3"
 
 services:
   spark-recording-data-loader:
-    image: spark:2.4.5
+    image: spark:3.0.0
     container_name: "spark-recording-data-loader"
     ports:
       - "0.0.0.0:4042:4040"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ${VOLUMES_PATH}/spark/conf:/opt/spark-2.4.5-bin-hadoop2.7/conf
-      - ${VOLUMES_PATH}/spark/logs:/opt/spark-2.4.5-bin-hadoop2.7/logs        
+      - ${VOLUMES_PATH}/spark/conf:/opt/spark-3.0.0-bin-hadoop3.2/conf
+      - ${VOLUMES_PATH}/spark/logs:/opt/spark-3.0.0-bin-hadoop3.2/logs        
       - ${DATA_PATH}:/sample-data        
       - ./jars:/opt/jars        
       - ./appJars:/opt/data-loader

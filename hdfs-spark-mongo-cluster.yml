@@ -4,8 +4,8 @@ services:
 
 # jre
   jre:
-    build: ./docker-files/jre/8u242-centos7
-    image: jre:8u242-centos7
+    build: docker-files/jre/1:11.0.7.10-4-centos7
+    image: jre:1:11.0.7.10-4-centos7
     container_name: jre
     networks:
       - spark-net
@@ -26,10 +26,10 @@ services:
     networks:
       - spark-net
 
-# spark-2.4.5
+# spark-3.0.0
   spark:
-    build: ./docker-files/spark/2.4.5
-    image: spark:2.4.5
+    build: docker-files/spark/3.0.0
+    image: spark:3.0.0
     container_name: spark
     networks:
       - spark-net        
@@ -70,7 +70,7 @@ services:
 # HIVE services        
   hive-server:
     build: ./docker-files/docker-hive/
-    image: hive:1.2.2
+    image: hive:2.3.7
     container_name: hive-server
     env_file:
       - ./env/hadoop-hive.env
@@ -85,7 +85,7 @@ services:
 
   hive-init-db:
     build: ./docker-files/docker-hive/
-    image: hive:1.2.2
+    image: hive:2.3.7
     env_file:
       - ./env/hadoop-hive.env
     environment:
@@ -96,7 +96,7 @@ services:
 
   hive-metastore-postgresql:
     build: ./docker-files/docker-hive-metastore-postgresql/
-    image: hive-metastore-postgresql:1.2.2-12
+    image: hive-metastore-postgresql:_-12
     container_name: hive-metastore-postgresql
     volumes:
       - ${VOLUMES_PATH}/postgres/data:/var/lib/postgresql/data
@@ -111,7 +111,7 @@ services:
         
   hive-metastore:
     build: ./docker-files/docker-hive/
-    image: hive:1.2.2
+    image: hive:2.3.7
     container_name: hive-metastore
     env_file:
       - ./env/hadoop-hive.env
@@ -126,14 +126,14 @@ services:
 
 # SPARK services    
   spark-master:
-    image: spark:2.4.5
+    image: spark:3.0.0
     container_name: spark-master
     ports:
       - 8080:8080
       - 7077:7077
     volumes:
-      - ${VOLUMES_PATH}/spark/conf:/opt/spark-2.4.5-bin-hadoop2.7/conf
-      - ${VOLUMES_PATH}/spark/logs:/opt/spark-2.4.5-bin-hadoop2.7/logs
+      - ${VOLUMES_PATH}/spark/conf:/opt/spark-3.0.0-bin-hadoop3.2/conf
+      - ${VOLUMES_PATH}/spark/logs:/opt/spark-3.0.0-bin-hadoop3.2/logs
       - ${VOLUMES_PATH}/spark/data:/data
       - ${VOLUMES_PATH}/spark/tmp:/tmp
       - ${DATA_PATH}:/sample-data
@@ -146,11 +146,11 @@ services:
       - spark-net
 
   spark-worker:
-    image: spark:2.4.5          
+    image: spark:3.0.0
     container_name: spark-worker-1    
     volumes:
-      - ${VOLUMES_PATH}/spark/conf:/opt/spark-2.4.5-bin-hadoop2.7/conf
-      - ${VOLUMES_PATH}/spark/logs:/opt/spark-2.4.5-bin-hadoop2.7/logs
+      - ${VOLUMES_PATH}/spark/conf:/opt/spark-3.0.0-bin-hadoop3.2/conf
+      - ${VOLUMES_PATH}/spark/logs:/opt/spark-3.0.0-bin-hadoop3.2/logs
       - ${DATA_PATH}:/sample-data
       - ${VOLUMES_PATH}/spark/localdir:/data/localdir
       - ${VOLUMES_PATH}/spark/workerdir:/data/workerdir
@@ -167,7 +167,7 @@ services:
 # Apache ZEPPELIN
   zeppelin:
     build: ./docker-files/zeppelin/
-    image: zeppelin:0.8.2
+    image: zeppelin:0.9.0-preview2
     container_name: zeppelin    
     ports:
       - 8085:8080
@@ -177,7 +177,7 @@ services:
       - ${VOLUMES_PATH}/zeppelin/notebook:/opt/zeppelin/notebook
       - ${VOLUMES_PATH}/zeppelin/logs:/opt/zeppelin/logs
       - ${DATA_PATH}:/sample-data
-      - ${VOLUMES_PATH}/spark/conf:/opt/spark-2.4.5-bin-hadoop2.7/conf
+      - ${VOLUMES_PATH}/spark/conf:/opt/spark-3.0.0-bin-hadoop3.2/conf
       - ${VOLUMES_PATH}/spark/localdir:/data/localdir
       - ${VOLUMES_PATH}/spark/workerdir:/data/workerdir
       - ./jars:/opt/jars
