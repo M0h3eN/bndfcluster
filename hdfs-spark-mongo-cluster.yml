@@ -94,8 +94,11 @@ services:
   hive-init-db:
     build: ./docker-files/docker-hive/
     image: hive:2.3.7
-    env_file:
-      - ./env/hadoop-hive.env
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/mnt/disk2/hdfs/conf:/opt/hadoop-2.7.7/etc/hadoop"
+      - "/mnt/disk2/hive/conf:/opt/hive/conf"
+      - "/mnt/disk2/hive/logs:/opt/hive/logs"
     command: schematool -dbType postgres -initSchema --verbose
     networks:
       - spark-net
