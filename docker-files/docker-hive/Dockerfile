@@ -4,7 +4,7 @@ MAINTAINER Mohsen Hadianpour <mohsenhadianpour@gmail.com>
 
 # Allow buildtime config of HIVE_VERSION
 ARG HIVE_VERSION
-ENV HIVE_VERSION=${HIVE_VERSION:-1.2.2}
+ENV HIVE_VERSION=${HIVE_VERSION:-2.3.7}
 
 ENV HIVE_HOME /opt/hive
 ENV PATH $HIVE_HOME/bin:$PATH
