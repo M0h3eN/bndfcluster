@@ -75,30 +75,11 @@ services:
     networks:
       - spark-net
 
-# HIVE services        
-  hive-server:
-    build: ./docker-files/docker-hive/
-    image: hive:2.3.7
-    container_name: hive-server
-    env_file:
-      - ./env/hadoop-hive.env
-    environment:
-      HIVE_CORE_CONF_javax_jdo_option_ConnectionURL: "jdbc:postgresql://hive-metastore/metastore"
-      SERVICE_PRECONDITION: "hive-metastore:9083"      
-    ports:
-      - "10000:10000"
-    restart: unless-stopped
-    networks:
-      - spark-net
-
   hive-init-db:
     build: ./docker-files/docker-hive/
     image: hive:2.3.7
-    volumes:
-      - "/etc/localtime:/etc/localtime:ro"
-      - "/mnt/disk2/hdfs/conf:/opt/hadoop-2.7.7/etc/hadoop"
-      - "/mnt/disk2/hive/conf:/opt/hive/conf"
-      - "/mnt/disk2/hive/logs:/opt/hive/logs"
+    env_file:
+      - ./env/hadoop-hive.env
     command: schematool -dbType postgres -initSchema --verbose
     networks:
       - spark-net
