@@ -15,9 +15,9 @@ echo "Creating and running containers:"
 docker-compose -f hdfs-spark-mongo-cluster.yml up -d jre jre-8 base-2 base spark
 docker-compose -f hdfs-spark-mongo-cluster.yml up -d mongo
 docker-compose -f hdfs-spark-mongo-cluster.yml up -d namenode hive-metastore-postgresql
+docker-compose -f hdfs-spark-mongo-cluster.yml up -d hive-init-db
 docker-compose -f hdfs-spark-mongo-cluster.yml up -d datanode hive-metastore
 docker-compose -f hdfs-spark-mongo-cluster.yml up -d hive-server
-docker-compose -f hdfs-spark-mongo-cluster.yml up -d hive-init-db
 docker-compose -f hdfs-spark-mongo-cluster.yml up -d spark-master spark-worker zeppelin netdata
 
 echo "Service Ports: "
