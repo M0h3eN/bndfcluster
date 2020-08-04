@@ -36,5 +36,5 @@
   <property>
       <name>io_compression_codecs</name>
       <value>org.apache.hadoop.io.compress.SnappyCodec</value>
-  </property>  
+  </property>
 </configuration>
