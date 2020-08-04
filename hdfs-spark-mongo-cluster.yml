@@ -90,7 +90,14 @@ services:
       - ${VOLUMES_PATH}/hive/conf:/opt/hive/conf
       - ${VOLUMES_PATH}/hive/logs:/opt/hive/logs
     environment:
-      SERVICE_PRECONDITION: "hive-metastore:9083"      
+      SERVICE_PRECONDITION: "hive-metastore:9083"
+      HADOOP_HOME: "/opt/hadoop-2.7.7"
+      HADOOP_HEAPSIZE: "16384"
+      HADOOP_CONF_DIR: "/etc/hadoop"
+      HIVE_CONF_DIR: "/opt/hive/conf"
+      HADOOP_LOG_DIR: "/opt/hadoop-2.7.7/logs"
+      HADOOP_ROOT_LOGGER: "WARN,console,RFA"
+      HADOOP_LOGFILE: "{{.Task.Name}}.log"
     ports:
       - "10000:10000"
     restart: unless-stopped
@@ -136,6 +143,13 @@ services:
     command: hive --service metastore
     environment:
       SERVICE_PRECONDITION: "namenode:9870 datanode:9864 hive-metastore-postgresql:5432"
+      HADOOP_HOME: "/opt/hadoop-2.7.7"
+      HADOOP_HEAPSIZE: "16384"
+      HADOOP_CONF_DIR: "/etc/hadoop"
+      HIVE_CONF_DIR: "/opt/hive/conf"
+      HADOOP_LOG_DIR: "/opt/hadoop-2.7.7/logs"
+      HADOOP_ROOT_LOGGER: "WARN,console,RFA"
+      HADOOP_LOGFILE: "{{.Task.Name}}.log"
     ports:
       - "9083:9083"
     restart: unless-stopped
