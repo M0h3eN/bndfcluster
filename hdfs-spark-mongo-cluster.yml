@@ -72,8 +72,10 @@ services:
     build: ./docker-files/docker-hive/
     image: hive:2.3.7
     container_name: hive-server
-    env_file:
-      - ./env/hadoop-hive.env
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${VOLUMES_PATH}/hdfs/conf:/opt/hadoop-2.7.7/etc/hadoop
+      - ${VOLUMES_PATH}/hive/conf:/opt/hive/conf
     environment:
       SERVICE_PRECONDITION: "hive-metastore:9083"      
     ports:
@@ -88,8 +90,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ${VOLUMES_PATH}/hdfs/conf:/opt/hadoop-2.7.7/etc/hadoop
-    env_file:
-      - ./env/hadoop-hive.env
+      - ${VOLUMES_PATH}/hive/conf:/opt/hive/conf
     command: schematool -dbType postgres -initSchema
     networks:
       - spark-net        
@@ -116,8 +117,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ${VOLUMES_PATH}/hdfs/conf:/opt/hadoop-2.7.7/etc/hadoop
-    env_file:
-      - ./env/hadoop-hive.env
+      - ${VOLUMES_PATH}/hive/conf:/opt/hive/conf
     command: hive --service metastore
     environment:
       SERVICE_PRECONDITION: "namenode:9870 datanode:9864 hive-metastore-postgresql:5432"
