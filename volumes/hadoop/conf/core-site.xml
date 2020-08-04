@@ -19,7 +19,7 @@
 <configuration>
   <property>
       <name>fs.defaultFS</name>
-      <value>hdfs://namenode:9000</value>
+      <value>hdfs://namenode:8020</value>
   </property>
   <property>
       <name>http_staticuser_user</name>
@@ -36,46 +36,5 @@
   <property>
       <name>io_compression_codecs</name>
       <value>org.apache.hadoop.io.compress.SnappyCodec</value>
-  </property>  
-<property><name>fs.defaultFS</name><value>hdfs://6da6a2a93995:8020</value></property>
-<property><name>hadoop.proxyuser.hue.hosts</name><value>*</value></property>
-<property><name>fs.defaultFS</name><value>hdfs://namenode:9000</value></property>
-<property><name>hadoop.http.staticuser.user</name><value>root</value></property>
-<property><name>io.compression.codecs</name><value>org.apache.hadoop.io.compress.SnappyCodec</value></property>
-<property><name>hadoop.proxyuser.hue.groups</name><value>*</value></property>
-<property><name>hadoop.proxyuser.hue.hosts</name><value>*</value></property>
-<property><name>fs.defaultFS</name><value>hdfs://namenode:9000</value></property>
-<property><name>hadoop.http.staticuser.user</name><value>root</value></property>
-<property><name>io.compression.codecs</name><value>org.apache.hadoop.io.compress.SnappyCodec</value></property>
-<property><name>hadoop.proxyuser.hue.groups</name><value>*</value></property>
-<property><name>hadoop.proxyuser.hue.hosts</name><value>*</value></property>
-<property><name>fs.defaultFS</name><value>hdfs://namenode:9000</value></property>
-<property><name>hadoop.http.staticuser.user</name><value>root</value></property>
-<property><name>io.compression.codecs</name><value>org.apache.hadoop.io.compress.SnappyCodec</value></property>
-<property><name>hadoop.proxyuser.hue.groups</name><value>*</value></property>
-<property><name>hadoop.proxyuser.hue.hosts</name><value>*</value></property>
-<property><name>fs.defaultFS</name><value>hdfs://namenode:9000</value></property>
-<property><name>hadoop.http.staticuser.user</name><value>root</value></property>
-<property><name>io.compression.codecs</name><value>org.apache.hadoop.io.compress.SnappyCodec</value></property>
-<property><name>hadoop.proxyuser.hue.groups</name><value>*</value></property>
-<property><name>hadoop.proxyuser.hue.hosts</name><value>*</value></property>
-<property><name>fs.defaultFS</name><value>hdfs://namenode:9000</value></property>
-<property><name>hadoop.http.staticuser.user</name><value>root</value></property>
-<property><name>io.compression.codecs</name><value>org.apache.hadoop.io.compress.SnappyCodec</value></property>
-<property><name>hadoop.proxyuser.hue.groups</name><value>*</value></property>
-<property><name>hadoop.proxyuser.hue.hosts</name><value>*</value></property>
-<property><name>fs.defaultFS</name><value>hdfs://namenode:9000</value></property>
-<property><name>hadoop.http.staticuser.user</name><value>root</value></property>
-<property><name>io.compression.codecs</name><value>org.apache.hadoop.io.compress.SnappyCodec</value></property>
-<property><name>hadoop.proxyuser.hue.groups</name><value>*</value></property>
-<property><name>hadoop.proxyuser.hue.hosts</name><value>*</value></property>
-<property><name>fs.defaultFS</name><value>hdfs://namenode:9000</value></property>
-<property><name>hadoop.http.staticuser.user</name><value>root</value></property>
-<property><name>io.compression.codecs</name><value>org.apache.hadoop.io.compress.SnappyCodec</value></property>
-<property><name>hadoop.proxyuser.hue.groups</name><value>*</value></property>
-<property><name>hadoop.proxyuser.hue.hosts</name><value>*</value></property>
-<property><name>fs.defaultFS</name><value>hdfs://namenode:9000</value></property>
-<property><name>hadoop.http.staticuser.user</name><value>root</value></property>
-<property><name>io.compression.codecs</name><value>org.apache.hadoop.io.compress.SnappyCodec</value></property>
-<property><name>hadoop.proxyuser.hue.groups</name><value>*</value></property>
+  </property>
 </configuration>

@@ -29,12 +29,12 @@
 
 <property>
   <name>datanucleus.schema.autoCreateAll</name>
-  <value>true</value>
+  <value>false</value>
 </property>
 
 <property>     
  <name>datanucleus.autoCreateSchema</name>     
- <value>true</value>
+ <value>false</value>
 </property>
 
 <property>
