@@ -41,12 +41,18 @@ services:
     container_name: namenode
     ports:
       - "9874:9870"
-    environment:
-      - CLUSTER_NAME=neurodata
-    env_file:
-      - ./env/hadoop.env        
     volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${VOLUMES_PATH}/hdfs/conf:/opt/hadoop-3.2.1/etc/hadoop
+      - ${VOLUMES_PATH}/hdfs/logs:/opt/hadoop-3.2.1/logs
       - ${VOLUMES_PATH}/hadoop/namenode:/hadoop/dfs/name
+    environment:
+      CLUSTER_NAME: BDNS
+      HADOOP_HEAPSIZE: "16384"
+      HADOOP_CONF_DIR: "/etc/hadoop"
+      HADOOP_LOG_DIR: "/opt/hadoop-3.2.1/logs"
+      HADOOP_ROOT_LOGGER: "WARN,console,RFA"
+      HADOOP_LOGFILE: "{{.Task.Name}}.log"
     restart: unless-stopped
     networks:
       - spark-net
@@ -55,12 +61,18 @@ services:
     build: ./docker-files/hadoop/3.2.1/datanode
     image: datanode:3.2.1
     container_name: datanode
-    env_file:
-      - ./env/hadoop.env    
     volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${VOLUMES_PATH}/hdfs/conf:/opt/hadoop-3.2.1/etc/hadoop
+      - ${VOLUMES_PATH}/hdfs/logs:/opt/hadoop-3.2.1/logs
       - ${VOLUMES_PATH}/hadoop/datanode:/hadoop/dfs/data
     environment:
       SERVICE_PRECONDITION: "namenode:9870"
+      HADOOP_HEAPSIZE: "16384"
+      HADOOP_CONF_DIR: "/etc/hadoop"
+      HADOOP_LOG_DIR: "/opt/hadoop-3.2.1/logs"
+      HADOOP_ROOT_LOGGER: "WARN,console,RFA"
+      HADOOP_LOGFILE: "{{.Task.Name}}.log"
     ports:
       - "9864:9864"      
     restart: unless-stopped
@@ -76,6 +88,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ${VOLUMES_PATH}/hdfs/conf:/opt/hadoop-2.7.7/etc/hadoop
       - ${VOLUMES_PATH}/hive/conf:/opt/hive/conf
+      - ${VOLUMES_PATH}/hive/logs:/opt/hive/logs
     environment:
       SERVICE_PRECONDITION: "hive-metastore:9083"      
     ports:
@@ -91,6 +104,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ${VOLUMES_PATH}/hdfs/conf:/opt/hadoop-2.7.7/etc/hadoop
       - ${VOLUMES_PATH}/hive/conf:/opt/hive/conf
+      - ${VOLUMES_PATH}/hive/logs:/opt/hive/logs
     command: schematool -dbType postgres -initSchema
     networks:
       - spark-net        
@@ -118,6 +132,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ${VOLUMES_PATH}/hdfs/conf:/opt/hadoop-2.7.7/etc/hadoop
       - ${VOLUMES_PATH}/hive/conf:/opt/hive/conf
+      - ${VOLUMES_PATH}/hive/logs:/opt/hive/logs
     command: hive --service metastore
     environment:
       SERVICE_PRECONDITION: "namenode:9870 datanode:9864 hive-metastore-postgresql:5432"

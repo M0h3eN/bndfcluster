@@ -19,7 +19,7 @@
 <configuration>
 <property>
     <name>dfs.namenode.datanode.registration.ip-hostname-check</name>
-    <value>true</value>
+    <value>false</value>
 </property>
 <property>
     <name>dfs.webhdfs.enabled</name>
@@ -32,6 +32,10 @@
 <property>
     <name>dfs.namenode.name.dir</name>
     <value>file:///hadoop/dfs/name</value>
+</property>
+<property>
+    <name>dfs.datanode.data.dir</name>
+    <value>file:///hadoop/dfs/data</value>
 </property>
 <property>
     <name>dfs.namenode.rpc-bind-host</name>
@@ -56,5 +60,10 @@
 <property>
     <name>dfs.datanode.use.datanode.hostname</name>
     <value>true</value>
-</property>	
+</property>
+<property>
+    <name>dfs.replication</name>
+    <value>1</value>
+    <description>Block Replication</description>
+</property>
 </configuration>

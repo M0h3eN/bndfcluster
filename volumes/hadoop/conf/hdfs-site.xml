@@ -34,6 +34,10 @@
     <value>file:///hadoop/dfs/name</value>
 </property>
 <property>
+    <name>dfs.datanode.data.dir</name>
+    <value>file:///hadoop/dfs/data</value>
+</property>
+<property>
     <name>dfs.namenode.rpc-bind-host</name>
     <value>0.0.0.0</value>
 </property>
@@ -56,5 +60,10 @@
 <property>
     <name>dfs.datanode.use.datanode.hostname</name>
     <value>true</value>
-</property>	
+</property>
+<property>
+    <name>dfs.replication</name>
+    <value>1</value>
+    <description>Block Replication</description>
+</property>
 </configuration>
