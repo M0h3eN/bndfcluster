@@ -12,3 +12,5 @@ RUN yum upgrade -y && yum install -y \
        rm -rf /var/lib/apt/lists/*
 
 ENV JAVA_HOME /etc/alternatives/jre
+
+
