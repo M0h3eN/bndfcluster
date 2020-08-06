@@ -12,7 +12,7 @@ services:
       - ${VOLUMES_PATH}/spark/logs:/opt/spark-3.0.0-bin-hadoop3.2/logs
       - ./jars:/opt/jars        
       - ./appJars:/opt/data-loader
-    command: "bin/spark-submit --class com.ipm.nslab.bdns.Sorter --master spark://spark-master:7077 --executor-memory ${SPARK_EXECUTOR_MEMORY}G --total-executor-cores ${SPARK_EXECUTOR_CORES} --driver-memory ${SPARK_DRIVER_MEMORY}G /opt/data-loader/bdns-2.0.0.jar mongodb://root:ns123@mongos:27017/admin ${NAME}"
+    command: 'bin/spark-submit --class com.ipm.nslab.bdns.Sorter --master spark://spark-master:7077 --conf "spark.driver.extraClassPath=/opt/jars/postgresql-42.2.5.jar" --conf "spark.executor.extraClassPath=/opt/jars/postgresql-42.2.5.jar"  --executor-memory ${SPARK_EXECUTOR_MEMORY}G --total-executor-cores ${SPARK_EXECUTOR_CORES} --driver-memory ${SPARK_DRIVER_MEMORY}G /opt/data-loader/bdns-2.0.0.jar mongodb://root:ns123@mongos:27017/admin ${NAME}'
     networks:
       - spark-net
 
