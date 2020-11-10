@@ -13,7 +13,7 @@ services:
       - ${DATA_PATH}:/sample-data        
       - ./jars:/opt/jars        
       - ./appJars:/opt/data-loader
-    command: "bin/spark-submit --class com.ipm.nslab.bdns.RecordingDataLoader --master spark://spark-master:7077 --executor-memory ${SPARK_EXECUTOR_MEMORY}G --total-executor-cores ${SPARK_EXECUTOR_CORES} --driver-memory ${SPARK_DRIVER_MEMORY}G /opt/data-loader/bdns-2.0.0.jar /sample-data mongodb://root:ns123@mongos:27017/admin" 
+    command: "bin/spark-submit --class com.ipm.nslab.bndf.RecordingDataLoader --master spark://spark-master:7077 --executor-memory ${SPARK_EXECUTOR_MEMORY}G --total-executor-cores ${SPARK_EXECUTOR_CORES} --driver-memory ${SPARK_DRIVER_MEMORY}G /opt/data-loader/bndf-2.0.0.jar /sample-data mongodb://root:ns123@mongos:27017/admin" 
     networks:
       - spark-net
 
