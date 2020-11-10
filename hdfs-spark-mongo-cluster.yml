@@ -47,7 +47,7 @@ services:
       - ${VOLUMES_PATH}/hadoop/logs:/opt/hadoop-3.2.1/logs
       - ${VOLUMES_PATH}/hadoop/namenode:/hadoop/dfs/name
     environment:
-      CLUSTER_NAME: "BDNS"
+      CLUSTER_NAME: "BNDF"
       HADOOP_HEAPSIZE: "16384"
       HADOOP_CONF_DIR: "/etc/hadoop"
       HADOOP_LOG_DIR: "/opt/hadoop-3.2.1/logs"
