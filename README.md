@@ -1,6 +1,6 @@
-# BDNS Cluster
+# BNDF Cluster
 ## Introduction
-This is a Standalone cluster which includes the big data tools required by **BDNS**. This cluster is built and configured with [Docker](https://www.docker.com/). Extenstion and scale-up to multi-node cluster could be easily done with [Docker Swarm](https://docs.docker.com/engine/swarm/) or other container orchestration tools like [Kubernetes](https://kubernetes.io/).
+This is a Standalone cluster which includes the big data tools required by **BNDF**. This cluster is built and configured with [Docker](https://www.docker.com/). Extenstion and scale-up to multi-node cluster could be easily done with [Docker Swarm](https://docs.docker.com/engine/swarm/) or other container orchestration tools like [Kubernetes](https://kubernetes.io/).
 
 ### Versioning Information
 Tools that is configured in this cluster could be summarized in the following table.
@@ -36,8 +36,8 @@ Service WebUi is accessible with http://MACHINE_IP:Port, where MACHINE_IP is eit
 [Docker](https://www.docker.com/) and [Docker Compose](https://www.docker.com/compose/) should be installed in order to create the cluster. Generally docker is supported in all operation systems but, since the scripts required for creating cluster is written in [Bash](https://www.gnu.org/software/bash/)  Windows os is not supported currently.
 
 ```bash
-$ git clone https://gitlab.com/neuroscience-lab/bdnscluster.git  
-$ cd bdnscluster
+$ git clone https://gitlab.com/neuroscience-lab/bndfcluster.git
+$ cd bndfcluster
 ```
 #### Root directory information
 
@@ -46,7 +46,7 @@ Directrories are configurable and their path could be changed by the user.
 * **volumes** directory include configs and data of the services and it should be places on a disk with abundunt capacity.
 * **sample-data** corresponds the input data directory.
 * **jars** directory includes extra jar files that user needs.
-* **appJars** is the directory that includes BDNS jar file.
+* **appJars** is the directory that includes BNDF jar file.
 
 Cluster could be created by the `create-hdfs-spark-cluster.sh` scripts. This script takes two parameter, **VOLUMES_PATH** and **DATA_PATH** respectively, which corresponds to volumes and sample-data directories.
 
@@ -59,20 +59,20 @@ This will create cluster with default paths. It could take some time for the fir
 $ sudo docker ps
 ```
 
-### Work with BDNS Modules
+### Work with BNDF Modules
 
 #### Get Sample Data
 
-Sample data to run BDNS could be get through `get-data.sh` script. It takes **DATA_PATH** parameter.
+Sample data to run BNDF could be get through `get-data.sh` script. It takes **DATA_PATH** parameter.
 
 ```bash
 $ ./get-data.sh ./sample-data
 ```
 
-#### Get Latest BDNS jar file
+#### Get Latest BNDF jar file
 
 ```bash
-$ ./get-bdns-jar.sh ./appJars
+$ ./get-bndf-jar.sh ./appJars
 ```
 #### RecordingDataLoader Module
 
