@@ -36,7 +36,7 @@ Service WebUi is accessible with http://MACHINE_IP:Port, where MACHINE_IP is eit
 [Docker](https://www.docker.com/) and [Docker Compose](https://www.docker.com/compose/) should be installed in order to create the cluster. Generally docker is supported in all operation systems but, since the scripts required for creating cluster is written in [Bash](https://www.gnu.org/software/bash/)  Windows os is not supported currently.
 
 ```bash
-$ git clone https://gitlab.com/neuroscience-lab/bndfcluster.git
+$ git clone https://github.com/M0h3eN/bndfcluster.git
 $ cd bndfcluster
 ```
 #### Root directory information
