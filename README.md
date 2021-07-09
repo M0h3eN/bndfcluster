@@ -1,11 +1,11 @@
 # BNDF Cluster
 ## Introduction
-This is a Standalone cluster which includes the big data tools required by **BNDF**. This cluster is built and configured with [Docker](https://www.docker.com/). Extenstion and scale-up to multi-node cluster could be easily done with [Docker Swarm](https://docs.docker.com/engine/swarm/) or other container orchestration tools like [Kubernetes](https://kubernetes.io/).
+This is a Standalone cluster which includes the big data tools required by **BNDF**. This cluster is built and configured with [Docker](https://www.docker.com/). Extension and scale-up to multi-node cluster could be easily done with [Docker Swarm](https://docs.docker.com/engine/swarm/) or other container orchestration tools like [Kubernetes](https://kubernetes.io/).
 
 ### Versioning Information
 Tools that is configured in this cluster could be summarized in the following table.
 
-| Tool  | Depencies  | DepenciesVersion  | Version
+| Tool  | Dependencies  | DependenciesVersion  | Version
 |---|---|---|---|
 | Apache Hadoop  | Java | 8, 11  | 2.7.7, 3.2.1
 | Apache Hive  | Apache Hadoop, PostgreSQL  | 2.7.7, 12  | 2.3.7
@@ -33,7 +33,7 @@ Service WebUi is accessible with http://MACHINE_IP:Port, where MACHINE_IP is eit
 
 ###  Create the cluster
 
-[Docker](https://www.docker.com/) and [Docker Compose](https://www.docker.com/compose/) should be installed in order to create the cluster. Generally docker is supported in all operation systems but, since the scripts required for creating cluster is written in [Bash](https://www.gnu.org/software/bash/)  Windows os is not supported currently.
+[Docker](https://www.docker.com/), and [Docker Compose](https://www.docker.com/compose/) should be installed in order to create the cluster. Generally all operating systems have support for docker.
 
 ```bash
 $ git clone https://github.com/M0h3eN/bndfcluster.git
@@ -41,9 +41,9 @@ $ cd bndfcluster
 ```
 #### Root directory information
 
-Directrories are configurable and their path could be changed by the user.
+Directories are configurable, and their path could be changed by the user.
 
-* **volumes** directory include configs and data of the services and it should be places on a disk with abundunt capacity.
+* **volumes** directory include configs and data of the services, and it should be places on a disk with abundant capacity.
 * **sample-data** corresponds the input data directory.
 * **jars** directory includes extra jar files that user needs.
 * **appJars** is the directory that includes BNDF jar file.
